@@ -35,14 +35,14 @@
                         <a class="btn" href="editTask.php">Editar</button>
                     </td>
                 </tr>
-                <!-- <?php foreach ($tarefas as $tarefa) : ?>
+                <?php foreach ($tarefas as $tarefa) : ?>
                     <td>
-                        <?php echo $pedido['tarefa']['nome']; ?>
+                        <h3><?= htmlspecialchars($tarefa['nome']); ?></h3>
                     </td> 
                     <td>
-                        <?php echo $pedido['tarefa']['prioridade']; ?>
+                        <p><strong>Prioridade:</strong> <?= ucfirst(htmlspecialchars($tarefa['prioridade'])); ?></p>
                     </td>
-                <?php endforeach; ?>     -->
+                <?php endforeach; ?>    
             </tbody>
         </table>
         

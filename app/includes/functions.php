@@ -21,6 +21,23 @@ function create ($nome, $prioridade, $connect) {
 
         $query->close();
     }
+    function read($connect) {
+        $query = $connect->query("SELECT * FROM tarefas");
+        
+        if ($query === false) {
+            die('Erro na consulta: ' . $connect->error);
+        }
+        
+        // Inicializar um array para armazenar as tarefas
+        $tarefas = [];
+        
+        // Iterar sobre o resultado da consulta e armazenar em $tarefas
+        while ($row = $query->fetch_assoc()) {
+            $tarefas[] = $row;
+        }
+        
+        return $tarefas;
+    }
 //ss significa que são duas strings
 }
 ?>
