@@ -1,9 +1,11 @@
 <?php
     require_once './includes/config.php';
     require_once './includes/functions.php';
+    // require_once __DIR_  _ . '/config.php';
 
     $tarefas = read($connect);
-    ?>
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exibir Tarefas</title>
     <?php
-        echo '<link rel="stylesheet" href="../../assets/css/listTask.css">';
+    echo '<link rel="stylesheet" href="../../assets/css/listTask.css">';
     ?>
 </head>
 <body>
@@ -27,29 +29,30 @@
                     <th>Ações</th>
                 </tr>
             </thead>
+            <p><a href="./pages/Create/index.php">Criar Nova Tarefa</a></p>
             <tbody>
-                <tr>
-                    <td>Comprar leite</td>
-                    <td>Urgente</td>
-                    <td class="status feita">Feita</td>
-                    <td class="actions">
-                        <a class="btn" href="editTask.php">Editar</button>
-                    </td>
-                </tr>
-                <?php foreach ($tarefas as $tarefa): ?>
+                <?php if (!empty($tarefas)) : ?>
+                    <?php foreach ($tarefas as $tarefa) : ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($tarefa['nome']); ?></td>
+                            <td><?php echo htmlspecialchars($tarefa['prioridade']); ?></td>
+                            <td>Pendente</td>
+                            <td class="actionButtons">
+                                <!-- <a href="index.php?delete_id=<?php echo $tarefa['id']; ?>"
+                                onclick="return confirm('Tem certeza que deseja excluir esta tarefa?')">Excluir</a> -->
+                                <button id="deleteButton">Excluir</button>
+                                <button id="editButton">Editar</button>
+                                <button id="checkButton">Pronto</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
                     <tr>
-                        <td><?php echo $tarefa['nome']; ?></td>
-                        <td><?php echo $tarefa['prioridade']; ?></td>
-                        <td><?php echo $tarefa['created_at']; ?></td>
-                        <td><a href="index.php?delete_id=<?php echo $tarefa['id']; ?>
-                        " onclick="return confirm('Tem certeza que deseja excluir esta tarefa?')">Excluir</a></td>
+                        <td colspan="4">Não há tarefas para exibir.</td>
                     </tr>
-
-            <?php endforeach; ?>  
+                <?php endif; ?>
             </tbody>
         </table>
-        
-        <p><a href="./pages/Create/index.php">Criar Nova Tarefa</a></p>
     </div>
 </body>
 </html>

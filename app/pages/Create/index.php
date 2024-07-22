@@ -1,16 +1,21 @@
 <?php
-    require_once './includes/config.php';
-    require_once './includes/functions.php';
+    require_once '../../includes/config.php';
+    require_once '../../includes/functions.php';
 
-        if (isset($_POST['submit']))
-        {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Verificar se os índices estão definidos em $_POST
+        if (isset($_POST["nome"]) && isset($_POST["prioridade"])) {
+            // Chamar a função create() passando $nome, $prioridade e $connect
             $nome = htmlspecialchars($_POST["nome"]);
             $prioridade = htmlspecialchars($_POST["prioridade"]);
-
+    
             if (create($nome, $prioridade, $connect)) {
                 echo "Tarefa criada com sucesso!";
-            } 
-        }
+            } else {
+                echo "Erro ao criar tarefa.";
+            }
+        } 
+    }
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +32,7 @@
     <div class="container">
         <h1>Criar Nova Tarefa</h1>
         
-        <form method="POST" >
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
             <div class="form-group">
                 <label for="nome">Nome da Tarefa</label>
                 <input type="text" id="nome" name="nome" required>

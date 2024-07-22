@@ -46,6 +46,7 @@ table th {
 
 table td {
   font-size: 16px;
+  padding: 30px;
   vertical-align: middle;
 }
 
@@ -65,7 +66,33 @@ table td.status.feita {
 table td.actions {
   text-align: center;
 }
-
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 60px;
+  gap: 20px;
+}
+#deleteButton,
+#editButton,
+#checkButton {
+  font-size: 17px;
+  color: white;
+  padding: 19px;
+  text-align: center;
+  border-radius: 150px;
+  border: 0px;
+  font-size: medium;
+  text-decoration: none;
+}
+#deleteButton {
+  background-color: red;
+}
+#editButton {
+  background-color: orange;
+}
+#checkButton {
+  background-color: green;
+}
 .btn {
   padding: 8px 16px;
   font-size: 14px;
