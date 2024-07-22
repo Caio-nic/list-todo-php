@@ -1,4 +1,5 @@
 <?php
+    require_once './config.php';
 
 function create ($nome, $prioridade, $connect) {
 
@@ -21,6 +22,7 @@ function create ($nome, $prioridade, $connect) {
 
         $query->close();
     }
+
     function read($connect) {
         $query = $connect->query("SELECT * FROM tarefas");
         
@@ -35,9 +37,51 @@ function create ($nome, $prioridade, $connect) {
         while ($row = $query->fetch_assoc()) {
             $tarefas[] = $row;
         }
-        
         return $tarefas;
     }
-//ss significa que são duas strings
+    function delete($connect, $id) {
+        // Sanitizar o ID para evitar SQL Injection
+        $id = $connect->real_escape_string($id);
+        
+        $query = $connect->query(
+            "DELETE FROM 
+            tarefas 
+            WHERE id = $id");
+        
+        if ($query === false) {
+            die('Erro ao deletar tarefa: ' . $connect->error);
+        }
+        
+        // Verificar se uma linha foi deletada com sucesso
+        if ($connect->affected_rows > 0) {
+            return true; 
+        } else {
+            return false; // ID não encontrado ou nenhum registro afetado
+        }
+    }
+    function updateTarefa($connect, $id, $nome, $prioridade) {
+        // Sanitizar os dados para evitar SQL Injection
+        $id = $connect->real_escape_string($id);
+        $nome = $connect->real_escape_string($nome);
+        $prioridade = $connect->real_escape_string($prioridade);
+        
+        // Query SQL para atualizar a tarefa com o ID especificado
+        $query = $connect->query(
+            "UPDATE 
+            tarefas SET nome = '$nome', prioridade = '$prioridade'
+             WHERE id = $id"
+             );
+        
+        if ($query === false) {
+            die('Erro ao atualizar tarefa: ' . $connect->error);
+        }
+        
+        // Verificar se uma linha foi afetada (se foi atualizada com sucesso)
+        if ($connect->affected_rows > 0) {
+            return true; // Atualizado com sucesso
+        } else {
+            return false; // ID não encontrado ou nenhum registro afetado
+        }
+    }
 }
 ?>
