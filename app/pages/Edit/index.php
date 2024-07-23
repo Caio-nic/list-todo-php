@@ -1,19 +1,6 @@
 <?php
     require_once '../../includes/config.php';
     require_once '../../includes/functions.php';
-
-    if (isset($_GET['delete_id'])) {
-        $delete_id = $_GET['delete_id'];
-        
-        // Chamar a função delete para deletar a tarefa pelo ID
-        $deleted = delete($conn, $delete_id);
-        
-        if ($deleted) {
-            echo '<script>alert("Tarefa deletada com sucesso.");</script>';
-        } else {
-            echo '<script>alert("Erro ao deletar tarefa.");</script>';
-        }
-    }
     $tarefas = read($conn); 
 ?>
 <!DOCTYPE html>

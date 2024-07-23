@@ -12,7 +12,16 @@ body {
   overflow: hidden;
   padding: 20px;
 }
-
+#buttonMenu {
+  font-size: 17px;
+  color: rgb(204, 200, 200);
+  padding: 14px;
+  text-align: center;
+  border-radius: 150px;
+  border: 0px;
+  font-size: medium;
+  text-decoration: underline;
+}
 h1 {
   text-align: center;
   margin-bottom: 20px;

@@ -4,7 +4,23 @@
     // require_once __DIR_  _ . '/config.php';
 
     $tarefas = read($connect);
-
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_id'])) {
+        $id = $_POST['delete_id'];
+        echo 'ID a ser excluído: ' . $id . '<br>'; // Mensagem de depuração
+    
+        // Chamar a função delete para excluir a tarefa
+        $excluiu = delete($connect, $id);
+    
+        if ($excluiu) {
+            echo '<div class="success">Tarefa excluída com sucesso!</div>';
+            // Redirecionar ou atualizar a página após a exclusão
+            header("Refresh:0");
+            exit();
+        } else {
+            echo '<div class="error">Erro ao excluir tarefa. Por favor, tente novamente.</div>';
+        }
+    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -38,9 +54,11 @@
                             <td><?php echo htmlspecialchars($tarefa['prioridade']); ?></td>
                             <td>Pendente</td>
                             <td class="actionButtons">
-                                <!-- <a href="index.php?delete_id=<?php echo $tarefa['id']; ?>"
-                                onclick="return confirm('Tem certeza que deseja excluir esta tarefa?')">Excluir</a> -->
-                                <button id="deleteButton">Excluir</button>
+                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                        <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
+                                        <button type="submit" id="deleteButton" 
+                                        onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Excluir</button>
+                                </form>
                                 <button id="editButton">Editar</button>
                                 <button id="checkButton">Pronto</button>
                             </td>
