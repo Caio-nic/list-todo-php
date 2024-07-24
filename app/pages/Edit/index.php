@@ -2,32 +2,17 @@
 require_once '../../includes/config.php';
 require_once '../../includes/functions.php';
 
-// Verifica se o parâmetro 'id' está presente na URL
+// se o id tiver na url ele vai armazenar na variavel
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    
-    // Verifica se o formulário foi submetido via POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Obtenha os dados do formulário
         $nome = $_POST['nome'];
         $prioridade = $_POST['prioridade'];
-        
-        // Chame a função para atualizar a tarefa
         update($connect, $id, $nome, $prioridade);
-        
-        // Redirecione o usuário para a página de lista de tarefas ou exiba uma mensagem de sucesso
         header("Location: /");
         exit();
     }
-    
-    // Obtenha os detalhes da tarefa do banco de dados
-    $tarefa = read($connect, $id); // Implemente a função readTarefaById para obter os dados da tarefa
-    
-    if (!$tarefa) {
-        die("Tarefa não encontrada.");
-    }
-} else {
-    die("Parâmetro 'id' não encontrado na URL.");
+    $tarefa = read($connect, $id); 
 }
 ?>
 <!DOCTYPE html>
@@ -50,9 +35,9 @@ if (isset($_GET['id'])) {
             <div class="form-group">
                 <label for="prioridade">Prioridade</label>
                 <select id="prioridade" name="prioridade">
-                    <option value="urgente" <?php if ($tarefa['prioridade'] == 'urgente') echo 'selected'; ?>>Urgente</option>
-                    <option value="normal" <?php if ($tarefa['prioridade'] == 'normal') echo 'selected'; ?>>Normal</option>
-                    <option value="tranquilo" <?php if ($tarefa['prioridade'] == 'tranquilo') echo 'selected'; ?>>Tranquilo</option>
+                    <option value="Urgente" <?php if ($tarefa['prioridade'] == 'Urgente') echo 'selected'; ?>>Urgente</option>
+                    <option value="Normal" <?php if ($tarefa['prioridade'] == 'Normal') echo 'selected'; ?>>Normal</option>
+                    <option value="Tranquilo" <?php if ($tarefa['prioridade'] == 'Tranquilo') echo 'selected'; ?>>Tranquilo</option>
                 </select>
             </div>
             <button type="submit" class="btn">Salvar Alterações</button>

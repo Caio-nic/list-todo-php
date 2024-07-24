@@ -3,11 +3,9 @@
     require_once '../../includes/functions.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Verificar se os índices estão definidos em $_POST
         if (isset($_POST["nome"]) && isset($_POST["prioridade"])) {
-            // Chamar a função create() passando $nome, $prioridade e $connect
             $nome = htmlspecialchars($_POST["nome"]);
-            $prioridade = htmlspecialchars($_POST["prioridade"]);
+            $prioridade = $_POST["prioridade"];
     
             if (create($nome, $prioridade, $connect)) {
                 echo "Tarefa criada com sucesso!";

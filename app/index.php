@@ -4,16 +4,18 @@ require_once './includes/functions.php';
 
 $tarefas = read($connect);
 
-// Verifica se o formulário de exclusão foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
-    $id = $_POST['id'];
-
-    // Chama a função para deletar a tarefa
-    delete($connect, $id);
-
-    // Após deletar, recarrega a página para atualizar a lista de tarefas
-    header("Location: {$_SERVER['PHP_SELF']}");
-    exit();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['delete'])) {
+        $id = $_POST['id'];
+        delete($connect, $id);
+        header("Location: {$_SERVER['PHP_SELF']}");
+        exit();
+    } elseif (isset($_POST['mark_as_done'])) {
+        $id = $_POST['id'];
+        markAsDone($connect, $id); // Implemente esta função em functions.php
+        header("Location: {$_SERVER['PHP_SELF']}");
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -23,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exibir Tarefas</title>
     <link rel="stylesheet" href="../../assets/css/listTask.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
     <div class="container">   
@@ -45,23 +49,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
                     <?php foreach ($tarefas as $tarefa) : ?>
                         <tr>
                             <td><?php echo htmlspecialchars($tarefa['nome']); ?></td>
-                            <td><?php echo htmlspecialchars($tarefa['prioridade']); ?></td>
-                            <td><?php echo htmlspecialchars($tarefa['done']); ?></td>
-                            <td class="actionButtons">
-                                <!-- Formulário para excluir -->
-                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                                    <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
-                                    <button type="submit" name="delete" id="deleteButton" 
-                                    onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Excluir</button>
-                                </form>
-                                <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" id="editButton">Editar</a>
-                                <button id="checkButton">Pronto</button>
+                            <td><?php echo $tarefa['prioridade']; ?></td>
+                            <td><?php echo $tarefa['done']; ?></td>
+                            <td>
+                                <div class="actionButtons">
+                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                        <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
+                                        <button type="submit" name="delete" class="deleteButton" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                                            <span class="material-icons delete-icon">delete</span> 
+                                        </button>
+                                    </form>
+                                    <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                        <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
+                                        <button type="submit" name="mark_as_done" class="checkButton">
+                                            <i class="material-icons">check</i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="4">Não há tarefas para exibir.</td>
+                        <td class='noTasks' colspan="4">Não há tarefas para exibir no momento !</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
@@ -69,4 +82,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     </div>
 </body>
 </html>
-

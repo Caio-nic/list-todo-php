@@ -65,43 +65,66 @@ table td.status {
 }
 
 table td.status.pendente {
-  color: #ff8c00; /* laranja */
+  color: #ff8c00;
 }
 
 table td.status.feita {
-  color: #4caf50; /* verde */
+  color: #4caf50;
 }
 
 table td.actions {
   text-align: center;
 }
+
 .actionButtons {
   display: flex;
   justify-content: space-between;
   width: 60px;
-  gap: 20px;
+  gap: 60px;
 }
-#deleteButton,
-#editButton,
-#checkButton {
+.deleteButton,
+.editButton,
+.checkButton {
   font-size: 17px;
   color: white;
-  padding: 19px;
+  padding: 10px 12px;
   text-align: center;
-  border-radius: 150px;
+  border-radius: 35px;
   border: 0px;
   font-size: medium;
   text-decoration: none;
+  transition: background-color 0.3s;
 }
-#deleteButton {
-  background-color: red;
+.deleteButton {
+  background-color: rgb(228, 23, 23);
+  transition: background-color 0.3s ease;
 }
-#editButton {
-  background-color: orange;
+.editButton {
+  background-color: rgb(255, 196, 0);
 }
-#checkButton {
+.checkButton {
   background-color: green;
 }
+.deleteButton:hover {
+  background-color: rgb(241, 103, 103);
+  cursor: pointer;
+}
+.editButton:hover {
+  background-color: rgb(245, 212, 103);
+  cursor: pointer;
+}
+.checkButton:hover {
+  background-color: rgb(97, 201, 97);
+  cursor: pointer;
+}
+.orange-text {
+  color: orange;
+}
+
+.green-text {
+  color: green;
+}
+
 .btn {
   padding: 8px 16px;
   font-size: 14px;
