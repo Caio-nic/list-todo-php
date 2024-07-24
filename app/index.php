@@ -43,7 +43,8 @@ $tarefas = read($connect);
                                     <button type="submit" id="deleteButton" 
                                     onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Excluir</button>
                                 </form>
-                                <button id="editButton">Editar</button>
+                                <!-- Link para editar -->
+                                <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" id="editButton">Editar</a>
                                 <button id="checkButton">Pronto</button>
                             </td>
                         </tr>

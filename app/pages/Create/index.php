@@ -46,7 +46,7 @@
             </div>
             <button type="submit" name="submit" class="btn">Criar Tarefa</button>
         </form>
-        <p><a href="../List/listTask.php">Voltar para Lista de Tarefas</a></p>
+        <p><a href="/">Voltar para Lista de Tarefas</a></p>
     </div>
 </body>
 </html>
