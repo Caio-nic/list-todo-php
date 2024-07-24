@@ -78,68 +78,28 @@
     }
     
     function delete($connect, $id) {
-    // Sanitizando id para evitar SQL Injection
-        $id = $connect->real_escape_string($id);
+        // Query SQL para deletar a tarefa
+        $query = 
+        "DELETE FROM tarefas WHERE id = ?";
         
-        echo 'ID a ser excluído: ' . $id;
-
-        $query = $connect->query(
-          "DELETE FROM 
-                tarefas 
-            WHERE 
-                id = '$id'
-        ");
-
-        if ($query === false) {
-            die('Erro ao deletar tarefa: ' . $connect->error);
-        }            
-        // Verificar se uma linha foi deletada com sucesso
-        if ($connect->affected_rows > 0) {
-            return true; 
-        } else {
-            return false; // ID não encontrado ou nenhum registro afetado
+        // Preparar a declaração
+        $stmt = $connect->prepare($query);
+        
+        if ($stmt === false) {
+            die('Erro na preparação da declaração: ' . $connect->error);
         }
+        
+        // Bind do parâmetro ID
+        $stmt->bind_param('i', $id); // 'i' para integer, ajuste se necessário
+        
+        // Executar a declaração
+        if ($stmt->execute()) {
+            echo "Tarefa excluída com sucesso!";
+        } else {
+            echo "Erro ao excluir a tarefa: " . $stmt->error;
+        }
+        
+        // Fechar a declaração e conexão
+        $stmt->close();
     }
 ?>
-    <!-- function delete($connect, $id) {
-    // Sanitizando id para evitar SQL Injection
-        $id = $connect->real_escape_string($id);
-                    
-        $query = $connect->prepare(
-        "DELETE FROM 
-            tarefas 
-        WHERE 
-            id = $id");
-      
-        $query->bind_param("i", $id);
-        $query->execute();
-        $query->close();
-
-
-        // if ($query === false) {
-        //     die('Erro ao deletar tarefa: ' . $connect->error);
-        // }
-            
-        // // Verificar se uma linha foi deletada com sucesso
-        // if ($connect->affected_rows > 0) {
-        //     return true; 
-        // } else {
-        //     return false; // ID não encontrado ou nenhum registro afetado
-        // }
-    }
-    function updateTarefa($connect, $id, $nome, $prioridade) {
-        $stmt = $connect->prepare("UPDATE tarefas SET nome = ?, prioridade = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $nome, $prioridade, $id);
-        $stmt->execute();
-        $stmt->close();
-    }
-    
-    function getTarefaById($connect, $id) {
-        $stmt = $connect->prepare("SELECT * FROM tarefas WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $tarefa = $result->fetch_assoc();
-        $stmt->close();
-        return $tarefa;
-    } -->

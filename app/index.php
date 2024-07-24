@@ -3,8 +3,19 @@ require_once './includes/config.php';
 require_once './includes/functions.php';
 
 $tarefas = read($connect);
-?>
 
+// Verifica se o formulário de exclusão foi submetido
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
+    $id = $_POST['id'];
+
+    // Chama a função para deletar a tarefa
+    delete($connect, $id);
+
+    // Após deletar, recarrega a página para atualizar a lista de tarefas
+    header("Location: {$_SERVER['PHP_SELF']}");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -40,10 +51,9 @@ $tarefas = read($connect);
                                 <!-- Formulário para excluir -->
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                     <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
-                                    <button type="submit" id="deleteButton" 
+                                    <button type="submit" name="delete" id="deleteButton" 
                                     onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Excluir</button>
                                 </form>
-                                <!-- Link para editar -->
                                 <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" id="editButton">Editar</a>
                                 <button id="checkButton">Pronto</button>
                             </td>
@@ -59,5 +69,4 @@ $tarefas = read($connect);
     </div>
 </body>
 </html>
-
 
