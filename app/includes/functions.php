@@ -37,7 +37,7 @@
             while ($row = $query->fetch_assoc()) {
                 $tarefas[] = $row;
             }
-            $query->free_result();
+                $query->free_result();
             return $tarefas;
         } else {
             return $tarefas;
@@ -80,8 +80,16 @@
         $connect->close();
     }
     function markAsDone($connect, $id) {
-        $sql = "UPDATE tarefas SET done = 'Concluída' WHERE id = ?";
-        $stmt = mysqli_prepare($connect, $sql);
+        $query = 
+            "UPDATE 
+                    tarefas 
+                SET 
+                    done = 'Concluída' 
+                WHERE 
+                    id = ?
+            ";
+        
+        $stmt = mysqli_prepare($connect, $query);
         mysqli_stmt_bind_param($stmt, "i", $id);
         $success = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);

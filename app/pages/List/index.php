@@ -1,23 +1,3 @@
-<?php
-require_once './includes/config.php';
-require_once './includes/functions.php';
-
-$tarefas = read($connect);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['delete'])) {
-        $id = $_POST['id'];
-        delete($connect, $id);
-        header("Location: {$_SERVER['PHP_SELF']}");
-        exit();
-    } elseif (isset($_POST['mark_as_done'])) {
-        $id = $_POST['id'];
-        markAsDone($connect, $id); // Implemente esta função em functions.php
-        header("Location: {$_SERVER['PHP_SELF']}");
-        exit();
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -26,7 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Exibir Tarefas</title>
     <link rel="stylesheet" href="../../assets/css/listTask.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/index.js" defer></script> 
 </head>
 <body>
     <div class="container">   
@@ -53,21 +34,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <td><?php echo $tarefa['done']; ?></td>
                             <td>
                                 <div class="actionButtons">
-                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                    <form class="delete-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                         <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
-                                        <button type="submit" name="delete" class="deleteButton" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
-                                            <span class="material-icons delete-icon">delete</span> 
+                                        <button type="submit" name="delete" class="deleteButton">
+                                            <span class="material-icons delete-icon">delete</span>
                                         </button>
                                     </form>
-                                    <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                                        <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
-                                        <button type="submit" name="mark_as_done" class="checkButton">
-                                            <i class="material-icons">check</i>
-                                        </button>
-                                    </form>
+
+                                    <?php if ($tarefa['done'] != 'concluída') : ?>
+                                        <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                            <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
+                                            <button type="submit" name="mark_as_done" class="checkButton">
+                                                <i class="material-icons">check</i>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>
@@ -82,3 +66,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+

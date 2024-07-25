@@ -135,7 +135,9 @@ table td.actions {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .btn:hover {
   background-color: #333;
+}
+.deleteCenter {
+  display: flex;
 }

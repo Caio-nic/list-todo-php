@@ -40,7 +40,10 @@ select {
   border: 1px solid #ddd;
   border-radius: 3px;
 }
-
+.buttonsEdit {
+  display: flex;
+  justify-content: space-between;
+}
 .btn {
   padding: 10px 20px;
   font-size: 16px;
@@ -50,6 +53,7 @@ select {
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s;
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -57,9 +61,9 @@ select {
 }
 
 .btn-danger {
-  background-color: #f44336; /* vermelho */
+  background-color: #f44336;
 }
 
 .btn-danger:hover {
-  background-color: #d32f2f; /* vermelho mais escuro */
+  background-color: #d32f2f;
 }

@@ -2,34 +2,42 @@
     require_once '../../includes/config.php';
     require_once '../../includes/functions.php';
 
+    $status = '';
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["nome"]) && isset($_POST["prioridade"])) {
             $nome = htmlspecialchars($_POST["nome"]);
             $prioridade = $_POST["prioridade"];
-    
+
             if (create($nome, $prioridade, $connect)) {
-                echo "Tarefa criada com sucesso!";
+                $status = 'success';
             } else {
-                echo "Erro ao criar tarefa.";
+                $status = 'error';
             }
-        } 
+        }
+
+        header("Location: ".$_SERVER['PHP_SELF']."?status=".$status);
+        exit;
     }
+
+    $status = isset($_GET['status']) ? $_GET['status'] : '';
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Tarefa</title>
-    <?php
-        echo '<link rel="stylesheet" href="../../assets/css/createTask.css">';
-    ?>
+    <link rel="stylesheet" href="../../assets/css/createTask.css">
+    <script src="../../assets/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container">
         <h1>Criar Nova Tarefa</h1>
         
-        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
             <div class="form-group">
                 <label for="nome">Nome da Tarefa</label>
                 <input type="text" id="nome" name="nome" required>
@@ -42,9 +50,11 @@
                     <option value="urgente">Urgente</option>
                 </select>
             </div>
-            <button type="submit" name="submit" class="btn">Criar Tarefa</button>
+            <button type="submit" class="btn">Criar Tarefa</button>
         </form>
         <p><a href="/">Voltar para Lista de Tarefas</a></p>
     </div>
+    <script src="../../assets/js/alerts.js"></script> <!-- Adicione esta linha -->
 </body>
 </html>
+
