@@ -3,6 +3,7 @@ require_once './includes/config.php';
 require_once './includes/functions.php';
 
 $tarefas = read($connect);
+$status = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['delete'])) {
@@ -12,8 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } elseif (isset($_POST['mark_as_done'])) {
         $id = $_POST['id'];
+        $status = 'concluded';
         markAsDone($connect, $id);
-        header("Location: {$_SERVER['PHP_SELF']}");
+        header("Location: ".$_SERVER['PHP_SELF']."?status=".$status);
+        $status = isset($_GET['status']) ? $_GET['status'] : '';
         exit();
     }
 }
@@ -32,11 +35,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">   
         <table>
-            <caption><h2>Lista de Tarefas</h2></caption>
-            <caption>
-                <a id="buttonMenu" href="./pages/Create/index.php">Criar Nova Tarefa</a>
-                <a id="buttonMenu" href="./pages/Create/index.php">Ver Progresso</a>
-            </caption>
+            <div class="header">
+                <img src="./assets/images/todo.png" width="100px"></img>
+                <h1>Lista de Tarefas</h1>
+                <div class="buttonsMenu">
+                    <a id="buttonMenu" href="./pages/Create/index.php">Criar </a>
+                    <!-- <a id="buttonMenu" href="./pages/Create/index.php">Progresso</a> -->
+                </div>
+            </div>
+            <select id="prioridade" name="prioridade">
+                <option value="tranquilo">Tranquilo</option>
+                <option value="normal">Normal</option>
+                <option value="urgente">Urgente</option>
+            </select>
             <thead>
                 <tr>
                     <th>Tarefa</th>
@@ -45,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <th>Ações</th>
                 </tr>
             </thead>
-            
             <tbody>
                 <?php if (!empty($tarefas)) : ?>
                     <?php foreach ($tarefas as $tarefa) : ?>

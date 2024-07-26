@@ -1,42 +1,90 @@
 body {
   font-family: "Arial", sans-serif;
-  background-color: #f0f0f0;
+  background-color: #f7f3f3;
   margin: 0;
-  padding: 20px;
-}
-
-.container {
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  overflow: hidden;
-  padding: 20px;
-}
-#buttonMenu {
-  font-size: 17px;
-  color: rgb(204, 200, 200);
-  padding: 14px;
-  text-align: center;
-  border-radius: 150px;
-  border: 0px;
-  font-size: medium;
-  text-decoration: underline;
+  padding: 80px;
 }
 h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 40px;
+  font-weight: 500;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+h1::before {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background-color: #7f23ca;
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+}
+h2 {
+  color: black;
+}
+.container {
+  background-color: #fff;
+  /* box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); */
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 20px;
+  /* border-top-width: 10px;
+  border-top-color: purple; */
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-inline: 30px;
+}
+
+#buttonMenu {
+  font-size: 17px;
+  color: #333;
+  padding: 12px 24px;
+  text-align: center;
+  border-radius: 25px;
+  border: 2px solid #7f23ca;
+  background-color: #f8f9fa;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#buttonMenu:hover {
+  background-color: #954bd1;
+  color: #ffffff;
+  border-color: #7f23ca;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#buttonMenu:active {
+  background-color: #7f23ca;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 table caption {
   font-size: 24px;
   padding: 10px;
-  background-color: #333;
+  background-color: #ffffff;
   color: #fff;
   caption-side: top;
 }
@@ -49,7 +97,7 @@ table td {
 }
 
 table th {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   font-size: 18px;
 }
 
@@ -96,14 +144,23 @@ table td.actions {
   transition: background-color 0.3s;
 }
 .deleteButton {
-  background-color: rgb(228, 23, 23);
+  background-color: rgb(223, 68, 68);
   transition: background-color 0.3s ease;
 }
 .editButton {
-  background-color: rgb(255, 196, 0);
+  background-color: rgb(236, 198, 71);
 }
 .checkButton {
-  background-color: green;
+  background-color: rgb(58, 156, 58);
+}
+.deleteButton .material-icons {
+  color: rgb(0, 0, 0);
+}
+.checkButton .material-icons {
+  color: rgb(0, 0, 0);
+}
+.editButton .material-icons {
+  color: rgb(0, 0, 0);
 }
 .deleteButton:hover {
   background-color: rgb(241, 103, 103);

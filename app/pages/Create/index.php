@@ -15,11 +15,9 @@
                 $status = 'error';
             }
         }
-
         header("Location: ".$_SERVER['PHP_SELF']."?status=".$status);
         exit;
     }
-
     $status = isset($_GET['status']) ? $_GET['status'] : '';
 ?>
 
@@ -54,7 +52,6 @@
         </form>
         <p><a href="/">Voltar para Lista de Tarefas</a></p>
     </div>
-    <script src="../../assets/js/alerts.js"></script> <!-- Adicione esta linha -->
 </body>
 </html>
 
