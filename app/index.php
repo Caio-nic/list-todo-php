@@ -72,14 +72,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <button type="submit" name="delete" class="deleteButton" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
                                         <span class="material-icons delete-icon">delete</span> 
                                     </button>
+                                    
                                 </form>
+                                <!-- em casa precisei colocar e o strtolower -->
                                 <?php if (strtolower($tarefa['done']) !== 'concluída') : ?>
-                                    <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton">
+                                    <button href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton" >
                                         <i class="material-icons">edit</i>
-                                    </a>
+                                    </button>
                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                         <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
-                                        <button type="submit" name="mark_as_done" class="checkButton">
+                                        <button type="submit" name="mark_as_done" class="checkButton" >
                                             <i class="material-icons">check</i>
                                         </button>
                                     </form>

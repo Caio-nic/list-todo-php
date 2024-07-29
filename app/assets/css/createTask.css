@@ -12,7 +12,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-image: url('../images/tema2.jpg');
+  /* background-image: url('../images/tema2.jpg'); */
 }
 
 .container {
@@ -63,7 +63,8 @@ h1::before {
   color: #333;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 16px;
   border: 1px solid #ddd;
@@ -71,7 +72,8 @@ h1::before {
   font-size: 16px;
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus,
+.form-group select:focus {
   border-color: #7f23ca;
   outline: none;
 }
@@ -99,7 +101,7 @@ h1::before {
 
 .btn-danger {
   background-color: #d9534f;
-  width: auto; 
+  width: auto;
 }
 
 .btn-danger:hover {
