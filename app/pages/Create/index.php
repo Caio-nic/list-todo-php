@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="../../assets/css/createTask.css">
     <script src="../../assets/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
     <div class="container">
@@ -42,7 +43,8 @@
             </div>
             <div class="form-group">
                 <label for="prioridade">Prioridade</label>
-                <select id="prioridade" name="prioridade">
+                <select id="prioridade" name="prioridade" required>
+                    <option value="" disabled selected>Selecione um item</option>
                     <option value="tranquilo">Tranquilo</option>
                     <option value="normal">Normal</option>
                     <option value="urgente">Urgente</option>
@@ -50,7 +52,9 @@
             </div>
             <button type="submit" class="btn">Criar Tarefa</button>
         </form>
-        <p><a href="/">Voltar para Lista de Tarefas</a></p>
+        <a href="/" class="back-link">
+            <span class="material-icons">arrow_back</span>
+        </a>
     </div>
 </body>
 </html>

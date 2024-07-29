@@ -22,6 +22,8 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Tarefa</title>
     <link rel="stylesheet" href="../../assets/css/editTask.css">
+    <!-- Adicione o Material Icons se não estiver incluído -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
     <div class="container">
@@ -40,11 +42,13 @@ if (isset($_GET['id'])) {
                     <option value="Tranquilo" <?php if ($tarefa['prioridade'] == 'Tranquilo') echo 'selected'; ?>>Tranquilo</option>
                 </select>
             </div>
-            <button type="submit" class="btn">Salvar Alterações</button>
-            <a href="/" class="btn btn-danger">Cancelar</a>
+            <div class="btn-container">
+                <button type="button" class="btn btn-danger">Cancelar</button>
+                <button type="submit" class="btn">Salvar Alterações</button>
+            </div>
         </form>
         
-        <p><a href="/">Voltar para Lista de Tarefas</a></p>
+        <p><a href="/" class="back-link"><span class="material-icons">arrow_back</span></a></p>
     </div>
 </body>
 </html>
