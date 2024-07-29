@@ -59,43 +59,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tr>
             </thead>
             <tbody>
-            <?php if (!empty($tarefas)) : ?>
-                <?php foreach ($tarefas as $tarefa) : ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($tarefa['nome']); ?></td>
-                        <td><?php echo $tarefa['prioridade']; ?></td>
-                        <td><?php echo $tarefa['done']; ?></td>
-                        <td>
-                            <div class="actionButtons">
-                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="deleteCenter">
-                                    <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
-                                    <button type="submit" name="delete" class="deleteButton" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
-                                        <span class="material-icons delete-icon">delete</span> 
-                                    </button>
-                                    
-                                </form>
-                                <!-- em casa precisei colocar e o strtolower -->
-                                <?php if (strtolower($tarefa['done']) !== 'concluída') : ?>
-                                    <button href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton" >
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <?php if (!empty($tarefas)) : ?>
+                    <?php foreach ($tarefas as $tarefa) : ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($tarefa['nome']); ?></td>
+                            <td><?php echo $tarefa['prioridade']; ?></td>
+                            <td><?php echo $tarefa['done']; ?></td>
+                            <td>
+                                <div class="actionButtons">
+                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="deleteCenter">
                                         <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
-                                        <button type="submit" name="mark_as_done" class="checkButton" >
-                                            <i class="material-icons">check</i>
+                                        <button type="submit" name="delete" class="deleteButton" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                                            <span class="material-icons delete-icon">delete</span> 
                                         </button>
                                     </form>
-                                <?php endif; ?>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else : ?>
-    <tr>
-        <td class='noTasks' colspan="4">Não há tarefas para exibir no momento !</td>
-    </tr>
-<?php endif; ?>
-
+                                    <!-- em casa precisei colocar o strtolower -->
+                                    <?php if (strtolower($tarefa['done']) === 'concluída') : ?>
+                                        <button href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton" disabled>
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                            <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
+                                            <button type="submit" name="mark_as_done" class="checkButton" disabled>
+                                                <i class="material-icons">check</i>
+                                            </button>
+                                        </form>
+                                    <?php else : ?>
+                                        <a href="/pages/Edit/index.php?id=<?php echo $tarefa['id']; ?>" class="editButton">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                            <input type="hidden" name="id" value="<?php echo $tarefa['id']; ?>">
+                                            <button type="submit" name="mark_as_done" class="checkButton" >
+                                                <i class="material-icons">check</i>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                <tr>
+                    <td class='noTasks' colspan="4">Não há tarefas para exibir no momento !</td>
+                </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

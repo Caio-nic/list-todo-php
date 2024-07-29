@@ -151,7 +151,14 @@ table td.actions {
   white-space: nowrap;
   line-height: 0;
 }
-
+.editButton:disabled {
+  background-color: rgb(221, 221, 221);
+  cursor: not-allowed;
+}
+.checkButton:disabled {
+  background-color: rgb(221, 221, 221);
+  cursor: not-allowed;
+}
 .deleteButton {
   background-color: rgb(223, 68, 68);
 }
@@ -177,17 +184,17 @@ table td.actions {
 }
 
 .deleteButton:hover {
-  background-color: rgb(241, 103, 103);
+  /* background-color: rgb(241, 103, 103); */
   cursor: pointer;
 }
 
 .editButton:hover {
-  background-color: rgb(245, 212, 103);
+  /* background-color: rgb(245, 212, 103); */
   cursor: pointer;
 }
 
 .checkButton:hover {
-  background-color: rgb(97, 201, 97);
+  /* background-color: rgb(97, 201, 97); */
   cursor: pointer;
 }
 
